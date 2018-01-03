@@ -1,32 +1,33 @@
 package com.zld.dagger2demo;
 
+import com.zld.dagger2demo.base.BasePresenter;
+
 import javax.inject.Inject;
 
 /**
  * Created by lingdong on 2018/1/2.
  */
 
-public class LoginPresenter {
+public class LoginPresenter extends BasePresenter<ILoginView> {
 
-    private ILoginView mLoginView;
     private LoginModel mLoginModel;
 
     @Inject
-    public LoginPresenter(ILoginView mLoginView) {
-        this.mLoginView = mLoginView;
+    public LoginPresenter() {
         mLoginModel = new LoginModel();
     }
+
 
     public void login(String userName,String pwd){
         mLoginModel.login(userName, pwd, new ILoginListener() {
             @Override
             public void loginSuccess(String msg) {
-                mLoginView.onLoginSuccess(msg);
+                mView.onLoginSuccess(msg);
             }
 
             @Override
             public void loginFail(String msg) {
-                mLoginView.showMsg(msg);
+                mView.showMsg(msg);
             }
         });
     }
